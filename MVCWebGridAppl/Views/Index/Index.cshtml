@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MVCWebGridAppl.Models.ResponseDataModel>
+@{
+    ViewBag.Title = "ASP.NetMVC WebGrid WebAPI";
+    var grid = new WebGrid(source: Model, canPage: true, rowsPerPage: 10, canSort: true);
+    grid.Pager(WebGridPagerModes.All);
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/WebGrid.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="response">
+        @grid.GetHtml(
+                 tableStyle: "customers",
+                          headerStyle: "customers th",
+                                   alternatingRowStyle: ".customers tr",
+                                   columns: grid.Columns(
+    grid.Column(header: "No #", format: @<text><div>@(item.WebGrid.Rows.IndexOf(item) + 1)</div></text>),
+         grid.Column(header: "Name", columnName: "Name"),
+         grid.Column(header: "MaritalStatus", columnName: "MaritalStatus"),
+         grid.Column(header: "Gender", columnName: "Gender"),
+         grid.Column(header: "Designation", columnName: "Designation"),
+         grid.Column(header: "Department", columnName: "Department"),
+         grid.Column(header: "MajorBranch", columnName: "MajorBranch")
+         ))
+    </div>
+</body>
+</html>
